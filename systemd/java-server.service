@@ -1,0 +1,14 @@
+[Unit]
+Description=Java HTTP Server
+After=network.target
+
+[Service]
+Type=simple
+User=vboxuser
+WorkingDirectory=/home/vboxuser/httpserver
+ExecStart=/usr/bin/java SimpleHttpServer
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
