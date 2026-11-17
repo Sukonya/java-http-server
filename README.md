@@ -31,8 +31,23 @@ To ensure that we do not need to manually run the server everytime we start our 
 - journalctl -u java-server -f (live logs, Ctrl+C to exit)
 - After editing the .service file, always run-> sudo systemctl daemon-reload.
 After recompiling the Java file, run-> sudo systemctl restart java-server.
-
 ## Check status
 - sudo systemctl status java-server
 - curl http://localhost:8000
 - to see in windows-> In VirtualBox, add a second port forwarding rule: TCP, Host Port 8000, Guest Port 8000, Host IP 127.0.0.1. Then open http://127.0.0.1:8000 in Windows browser.
+## Manual Docker image
+- docker pull eclipse-temurin:25-jdk
+- docker run -dit --name builder eclipse-temurin:25-jdk bash
+- docker exec builder mkdir -p /app
+- docker cp ~/httpserver/SimpleHttpServer.java builder:/app/
+- docker exec -it builder bash
+-  cd /app
+-  ls -l
+-  javac SimpleHttpServer.java
+-  jar cfe server.jar SimpleHttpServer *.class
+-  java -jar server.jar
+-  exit
+
+Problem with this: once the pc is shut down or the server is down, all the steps are lost and have to be rewritten from scratch. To avoid this, we can instead use Dockerfile to create our docker image.
+## Docker image with Dockerfile
+
