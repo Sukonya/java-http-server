@@ -4,18 +4,32 @@ Simple Java HTTP server (port 8000) running on Ubuntu Server 26.04.1
 ## Run manually
 - javac SimpleHttpServer.java
 - java SimpleHttpServer
-
+## Run using a script
+Added a script to launch/stop the server. Ensures that only a single command can handle starting and stopping the server.
+- ./server.sh start
+- curl http://localhost:8000
+- ./server.sh stop
+## A set of scripts for the JAR
+javac compiles .java file into .class files, and jar bundles them into server.jar. By doing this, we can bundle multiple Java program files and resources into a single file. 
+- To build a jar file-> javac SimpleHttpServer.java
+        jar cfe "$JAR_FILE" SimpleHttpServer *.class
+- To run it-> java -jar server.jar.
+To test the jar scripts-> ./server-jar.sh build
+curl http://localhost:8000
+ls (server.jar should now exist)
+./server-jar.sh restart
+./server-jar.sh stop 
 ## Run as a systemd service
+To ensure that we do not need to manually run the server everytime we start our pc, we can create systemd files that ensure that the http server automatically starts at each reboot
 - sudo systemctl daemon-reload
 - sudo systemctl enable --now java-server
-
 ## Systemd commands
 - sudo systemctl stop java-server
 - sudo systemctl start java-server
 - sudo systemctl restart java-server
 - sudo systemctl disable java-server (no longer starts at boot)
 - journalctl -u java-server -f (live logs, Ctrl+C to exit)
-After editing the .service file, always run-> sudo systemctl daemon-reload.
+- After editing the .service file, always run-> sudo systemctl daemon-reload.
 After recompiling the Java file, run-> sudo systemctl restart java-server.
 
 ## Check status
