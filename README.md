@@ -50,4 +50,8 @@ After recompiling the Java file, run-> sudo systemctl restart java-server.
 
 Problem with this: once the pc is shut down or the server is down, all the steps are lost and have to be rewritten from scratch. To avoid this, we can instead use Dockerfile to create our docker image.
 ## Docker image with Dockerfile
-
+- build the image-> docker build -t java-server .
+- run the image-> docker run -d -p 8000:8000 --name my-java-server java-server (-d = start the server in the background, -p = map port 8000.)
+- check existing images-> docker images
+- check running containers-> docker ps
+- check all containers-> docker ps -a
