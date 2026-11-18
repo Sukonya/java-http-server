@@ -36,27 +36,17 @@ After recompiling the Java file, run-> sudo systemctl restart java-server.
 - curl http://localhost:8000
 - to see in windows-> In VirtualBox, add a second port forwarding rule: TCP, Host Port 8000, Guest Port 8000, Host IP 127.0.0.1. Then open http://127.0.0.1:8000 in Windows browser.
 ## Manual Docker image
-- docker pull eclipse-temurin:25-jdk
-
-docker run -dit --name builder eclipse-temurin:25-jdk bash
-
-docker exec builder mkdir -p /app
-
-docker cp ~/httpserver/SimpleHttpServer.java builder:/app/
-
-docker exec -it builder bash
-
-  cd /app
-
-  ls -l
-
-  javac SimpleHttpServer.java
-
-  jar cfe server.jar SimpleHttpServer *.class
-
-  java -jar server.jar
-
-  exit
+- docker pull eclipse-temurin:25-jdk\
+docker run -dit --name builder eclipse-temurin:25-jdk bash\
+docker exec builder mkdir -p /app\
+docker cp ~/httpserver/SimpleHttpServer.java builder:/app/\
+docker exec -it builder bash\
+  cd /app\
+  ls -l\
+  javac SimpleHttpServer.java\
+  jar cfe server.jar SimpleHttpServer *.class\
+  java -jar server.jar\
+  exit\
 
 Problem with this: once the pc is shut down or the server is down, all the steps are lost and have to be rewritten from scratch. To avoid this, we can instead use Dockerfile to create our docker image.
 ## Docker image with Dockerfile
@@ -66,14 +56,10 @@ Problem with this: once the pc is shut down or the server is down, all the steps
 - check running containers-> docker ps
 - check all containers-> docker ps -a
 
-to push the image to Docker Hub-> docker tag java-server YOURUSER/java-server:1.0
+to push the image to Docker Hub-> docker tag java-server YOURUSER/java-server:1.0\
+docker tag java-server YOURUSER/java-server:latest\
+docker push YOURUSER/java-server:1.0\
+docker push YOURUSER/java-server:latest\
 
-docker tag java-server YOURUSER/java-server:latest
-
-docker push YOURUSER/java-server:1.0
-
-docker push YOURUSER/java-server:latest
-
-to check if the server runs properly-> docker run -d --name any-unique-name -p 8000:8000 YOURUSER/java-server:1.0
-
+to check if the server runs properly-> docker run -d --name any-unique-name -p 8000:8000 YOURUSER/java-server:1.0\
 curl http://localhost:8000
