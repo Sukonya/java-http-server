@@ -2,4 +2,5 @@
 *.jar
 *.log
 *.pid
-out/
+java-http-server/out/
+go-http-server/gohttpserver

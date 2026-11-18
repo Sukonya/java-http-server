@@ -46,7 +46,7 @@ docker exec -it builder bash\
   javac SimpleHttpServer.java\
   jar cfe server.jar SimpleHttpServer *.class\
   java -jar server.jar\
-  exit\
+  exit
 
 Problem with this: once the pc is shut down or the server is down, all the steps are lost and have to be rewritten from scratch. To avoid this, we can instead use Dockerfile to create our docker image.
 ## Docker image with Dockerfile
@@ -59,7 +59,7 @@ Problem with this: once the pc is shut down or the server is down, all the steps
 to push the image to Docker Hub-> docker tag java-server YOURUSER/java-server:1.0\
 docker tag java-server YOURUSER/java-server:latest\
 docker push YOURUSER/java-server:1.0\
-docker push YOURUSER/java-server:latest\
+docker push YOURUSER/java-server:latest
 
 to check if the server runs properly-> docker run -d --name any-unique-name -p 8000:8000 YOURUSER/java-server:1.0\
 curl http://localhost:8000
