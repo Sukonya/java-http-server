@@ -1,1 +1,5 @@
+*.class
+*.jar
+*.log
+*.pid
 target/
